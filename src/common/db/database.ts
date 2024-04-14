@@ -1,5 +1,8 @@
 import { DataSource } from 'typeorm';
 import { entities } from './entities';
+import configuration from 'src/config/configuration';
+
+const { host, port, user, password, database } = configuration().database;
 
 export const databaseProviders = [
   {
@@ -7,11 +10,11 @@ export const databaseProviders = [
     useFactory: async () => {
       const dataSource = new DataSource({
         type: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'root',
-        password: 'mysqlpassword',
-        database: 'quizz_flutter',
+        host: host,
+        port: port,
+        username: user,
+        password: password,
+        database: database,
         entities: entities,
         synchronize: true,
       });
